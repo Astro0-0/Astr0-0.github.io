@@ -59,6 +59,6 @@ async function sendToWebhook(userInfo, webhookUrl) {
       throw new Error(`Webhook request failed with status ${response.status}`);
     }
   } catch (error) {
-    console.error("Error sending to webhook:", error);
+    console.error("Error sending to webhook(s):", error);
   }
 }
