@@ -19,7 +19,7 @@
                         <p><strong>Referrer:</strong> ${userInfo.referrer || "Not available"}</p>
                         <p><strong>Timestamp:</strong> ${userInfo.timestamp || "Not available"}</p>
                     `;
-                    sendToWebhook(userInfo, WEBHOOK_URL); 
+                    sendToWebhook(userInfo, WEBHOOK_URL, userInfo.ipAddress); 
                 });
         }   
     </script>
